@@ -1,0 +1,19 @@
+G04 B.Silkscreen*
+%TF.GenerationSoftware,KiCad,Pcbnew,7.0.0*%
+%TF.CreationDate,2025-01-01T00:00:00+00:00*%
+%TF.FileFunction,Legend,Bot*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+%MOMM*%
+%LPD*%
+G01*
+G75*
+%ADD10C,0.120000*%
+D10*
+X2000000Y28000000D02*
+X38000000Y28000000D01*
+D10*
+X2000000Y2000000D02*
+X2000000Y28000000D01*
+%TD*%
+M02*

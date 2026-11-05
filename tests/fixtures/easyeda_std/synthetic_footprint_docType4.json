@@ -1,0 +1,29 @@
+{
+ "head": {
+  "docType": "4",
+  "editorVersion": "6.5.34",
+  "newgId": true,
+  "c_para": "package`TEST-R0603`pre`R`nameAlias`Value"
+ },
+ "canvas": "CA~1000~1000~#000000~none~#0000FF~10~1000~1000~line~0.5~mm~1~45~visible~0.5~0~0~1~yes",
+ "title": "TEST-R0603",
+ "shape": [
+  "PAD~RECT~-2.95~0~3.15~3.54~1~~1~0~~0~gge1~0~~Y~0~0~0.1~~",
+  "PAD~RECT~2.95~0~3.15~3.54~1~~2~0~~0~gge2~0~~Y~0~0~0.1~~",
+  "TRACK~0.4~3~~-3.5 -1.6 3.5 -1.6 3.5 1.6 -3.5 1.6 -3.5 -1.6~gge3~0",
+  "ARC~0.4~3~~M -3.5 1.1 A 0.5 0.5 0 0 0 -3.0 1.6~~gge4~0",
+  "CIRCLE~0~-1.9~0.2~0.4~3~gge5~0~~",
+  "TEXT~P~0~-3.2~0.3~0~0~3~~2~R1~M 0 0 L 1 1~gge6~~0~",
+  "TEXT~N~0~3.0~0.3~0~0~3~~2~10k~M 0 0 L 1 1~gge7~~0~",
+  "VIA~0~5~2.4~~0.5~gge8~0"
+ ],
+ "BBox": {
+  "x": -3.5,
+  "y": -3.5,
+  "width": 7.0,
+  "height": 9.0
+ },
+ "layers": [
+  "1~TopLayer~#FF0000~true~true~true~"
+ ]
+}

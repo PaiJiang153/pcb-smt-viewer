@@ -1,0 +1,58 @@
+{
+ "schematics": {},
+ "boards": {
+  "V3SampleBoard": {
+   "schematic": "",
+   "pcb": "d0000000000000000000000000000001"
+  }
+ },
+ "pcbs": {
+  "d0000000000000000000000000000001": "V3Sample"
+ },
+ "footprints": {
+  "f0000000000000000000000000000001": {
+   "title": "R0402",
+   "type": 4
+  },
+  "f0000000000000000000000000000002": {
+   "title": "SOT-23-3",
+   "type": 4
+  },
+  "f0000000000000000000000000000003": {
+   "title": "HDR-2.54-4P",
+   "type": 4
+  }
+ },
+ "devices": {
+  "dev_resistor": {
+   "title": "10k",
+   "attributes": {
+    "Name": "10k",
+    "Designator": "R?",
+    "Footprint": "f0000000000000000000000000000001",
+    "Supplier Part": "C25804",
+    "Manufacturer Part": "0603WAF1002T5E",
+    "Description": "10kΩ 1% 0603"
+   }
+  },
+  "dev_sot": {
+   "title": "AO3400",
+   "attributes": {
+    "Name": "AO3400",
+    "Designator": "Q?",
+    "Footprint": "f0000000000000000000000000000002",
+    "Supplier Part": "C20917",
+    "Manufacturer Part": "AO3400A"
+   }
+  },
+  "dev_header": {
+   "title": "2.54-4P",
+   "attributes": {
+    "Name": "2.54-4P",
+    "Designator": "J?",
+    "Footprint": "f0000000000000000000000000000003",
+    "Supplier Part": "C124375"
+   }
+  }
+ }
+}

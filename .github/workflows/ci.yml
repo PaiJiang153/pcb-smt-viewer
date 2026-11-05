@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install olefile
+
+      - name: Byte-compile
+        run: python -m compileall -q scripts
+
+      - name: List backends
+        run: python scripts/pcb2viewer.py --list-formats
+
+      - name: Build every bundled fixture
+        run: ./tests/run_all.sh
+
+      - name: Check install.sh (into a temp dir)
+        run: |
+          ./install.sh --dir "$RUNNER_TEMP/skills"
+          test -f "$RUNNER_TEMP/skills/pcb-smt-viewer/SKILL.md"
+          python "$RUNNER_TEMP/skills/pcb-smt-viewer/scripts/pcb2viewer.py" --list-formats

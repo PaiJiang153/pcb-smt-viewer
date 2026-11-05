@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="smt-viewer">
+<title>SMT 贴片定位图</title>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>PCB</h1><span class="sub">SMT 贴片定位图</span>
+    <span class="dims"></span>
+  </div>
+  <div class="sideseg" data-side="top">
+    <button data-side="top" class="on">顶层 TOP <b data-count="top"></b></button>
+    <button data-side="bottom">底层 BOTTOM <b data-count="bottom"></b></button>
+  </div>
+  <div class="tools">
+    <label class="chk" title="显示丝印（白色线条）"><input type="checkbox" id="tg-silk" checked> 丝印</label>
+    <label class="chk" title="显示铜箔走线"><input type="checkbox" id="tg-cu" checked> 铜箔</label>
+    <label class="chk" title="半透明显示另一面的铜箔，便于对照定位"><input type="checkbox" id="tg-ghost" checked> 对侧透视</label>
+    <label class="chk" title="显示位号标签"><input type="checkbox" id="tg-labels" checked> 位号</label>
+    <label class="chk" title="显示 1mm / 5mm 网格"><input type="checkbox" id="tg-grid" checked> 网格</label>
+    <button class="tb" id="btn-fit" title="适配全板 (F)">适配</button>
+    <button class="tb" id="btn-csv" title="导出贴片清单 CSV">导出清单</button>
+    <button id="helpbtn" title="使用说明">?</button>
+  </div>
+</header>
+
+<main>
+  <aside id="side">
+    <div class="searchbox">
+      <span class="ic">⌕</span>
+      <input id="search" placeholder="搜索位号 / 值 / 封装   （按 / 聚焦）" autocomplete="off" spellcheck="false">
+      <button class="x" id="search-clear" title="清空">×</button>
+    </div>
+    <div class="row2">
+      <div class="seg" id="sidefilter">
+        <button data-f="cur" class="on">当前面</button>
+        <button data-f="all">两面</button>
+      </div>
+      <label class="chk" style="padding:2px 4px"><input type="checkbox" id="only-unplaced"> 仅未贴</label>
+    </div>
+    <div class="progress">
+      <div class="bar"><i id="pbar"></i></div>
+      <span id="ptext">0 / 0</span>
+      <button class="link" id="btn-reset">重置</button>
+    </div>
+    <div id="list" class="list"></div>
+    <div class="foot">共 <b id="cnt-all">0</b> 个元件 · 顶层 <b id="cnt-top">0</b> · 底层 <b id="cnt-bot">0</b></div>
+  </aside>
+
+  <section id="stage">
+    <canvas id="cv"></canvas>
+    <div id="detail" class="card hide"></div>
+    <div id="legend">
+      <span><i style="background:#f08a63"></i>顶层焊盘</span>
+      <span><i style="background:#6ea8ff"></i>底层焊盘</span>
+      <span><i style="background:#e5c86a"></i>通孔/插件</span>
+      <span><i style="background:#c6b57a;border-radius:50%"></i>过孔</span>
+      <span><i style="background:#e2e8f0"></i>丝印</span>
+      <span><i style="background:#4be48e"></i>选中</span>
+    </div>
+    <div id="scalebar">
+      <span id="sblabel">10 mm</span>
+      <div class="ln"></div>
+    </div>
+    <div id="readout">—</div>
+    <div id="tip"></div>
+    <div id="hint">滚轮缩放 · 拖动平移 · 点击元件选中 · 双击放大 · 空格标记已贴</div>
+  </section>
+</main>
+
+<div id="help">
+  <div class="box">
+    <h2>使用说明</h2>
+    <div class="sub" id="help-sub">SMT 贴片定位图 · 数据直接解析自 PCB 工程文件</div>
+    <h3>怎么用</h3>
+    <ul>
+      <li>在左上角输入位号（如 <b>R19</b>）或值/封装（如 <b>22uF</b>、<b>0603</b>），回车即自动定位并高亮。</li>
+      <li>也可以直接在板上点击元件选中；选中后会显示封装预览、值、旋转角、板内坐标。</li>
+      <li>贴好一颗按 <span class="kbd">空格</span> 标记为已贴，会自动跳到下一颗未贴的元件；进度条保存在本机浏览器里，关掉再打开仍在。</li>
+      <li>点侧栏复选框也可以单独勾选/取消；<b>重置</b> 清空全部标记；<b>导出清单</b> 生成 CSV（含坐标、角度、已贴状态）。</li>
+      <li>青色小点 = 第 1 脚位置（用于确认方向）；圆环 = 过孔，金色 = 通孔/插件焊盘。</li>
+    </ul>
+    <h3>快捷键</h3>
+    <ul>
+      <li><span class="kbd">/</span> 聚焦搜索栏 &nbsp; <span class="kbd">↑</span><span class="kbd">↓</span> 上一个 / 下一个元件</li>
+      <li><span class="kbd">T</span> 顶层 &nbsp; <span class="kbd">B</span> 底层 &nbsp; <span class="kbd">F</span> 适配全板 &nbsp; <span class="kbd">+</span><span class="kbd">-</span> 缩放</li>
+      <li><span class="kbd">空格</span> 标记已贴 &nbsp; <span class="kbd">Esc</span> 取消选中 / 关闭</li>
+      <li>滚轮缩放（以鼠标为中心），按住拖动平移，双击放大。</li>
+    </ul>
+    <h3>颜色</h3>
+    <ul>
+      <li><span class="sw" style="background:#ffa074"></span>顶层焊盘 &nbsp;
+          <span class="sw" style="background:#8bbcff"></span>底层焊盘 &nbsp;
+          <span class="sw" style="background:#f0d47c"></span>通孔焊盘 &nbsp;
+          <span class="sw" style="background:#cdbb80;border-radius:50%"></span>过孔 &nbsp;
+          <span class="sw" style="background:#e2e8f0"></span>丝印
+      </li>
+      <li>底层视角是「翻过来看」的镜像，左右会与顶层相反，和实际贴片时看板的方向一致。</li>
+    </ul>
+    <button class="close" id="helpclose">知道了</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="application/json" id="pcb-data">/*__DATA__*/</script>
+<script>
+/*__JS__*/
+</script>
+</body>
+</html>

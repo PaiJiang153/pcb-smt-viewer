@@ -1,0 +1,53 @@
+(kicad_pcb (version 20221018) (generator pcbnew)
+  (general (thickness 1.6))
+  (paper "A4")
+  (layers
+    (0 "F.Cu" signal)
+    (31 "B.Cu" signal)
+    (36 "B.SilkS" user "b.silkscreen")
+    (37 "F.SilkS" user "f.silkscreen")
+    (44 "Edge.Cuts" user)
+  )
+  (setup (pad_to_mask_clearance 0))
+
+  (footprint "Resistor_SMD:R_0603_1608Metric"
+    (layer "F.Cu") (at 10 5 0) (property "Reference" "R1" (at 0 -1.5) (layer "F.SilkS"))
+    (property "Value" "10k" (at 0 1.5) (layer "F.Fab"))
+    (pad "1" smd rect (at -0.7875 0) (size 0.9 1.0) (layers "F.Cu" "F.Paste" "F.Mask") (net 1 "N1"))
+    (pad "2" smd rect (at 0.7875 0) (size 0.9 1.0) (layers "F.Cu" "F.Paste" "F.Mask") (net 2 "N2"))
+    (fp_line (start -1.4 -0.85) (end 1.4 -0.85) (stroke (width 0.12)) (layer "F.SilkS"))
+    (fp_line (start 1.4 -0.85) (end 1.4 0.85) (stroke (width 0.12)) (layer "F.SilkS"))
+    (fp_line (start 1.4 0.85) (end -1.4 0.85) (stroke (width 0.12)) (layer "F.SilkS"))
+    (fp_line (start -1.4 0.85) (end -1.4 -0.85) (stroke (width 0.12)) (layer "F.SilkS"))
+  )
+
+  (footprint "Capacitor_SMD:C_0805_2012Metric"
+    (layer "B.Cu") (at 20 15 90) (property "Reference" "C1" (at 0 -1.5) (layer "B.SilkS"))
+    (property "Value" "100nF" (at 0 1.5) (layer "B.Fab"))
+    (pad "1" smd rect (at -0.9125 0) (size 1.0 1.45) (layers "B.Cu" "B.Paste" "B.Mask") (net 1 "N1"))
+    (pad "2" smd rect (at 0.9125 0) (size 1.0 1.45) (layers "B.Cu" "B.Paste" "B.Mask") (net 2 "N2"))
+    (fp_line (start -1.6 -1.0) (end 1.6 -1.0) (stroke (width 0.12)) (layer "B.SilkS"))
+    (fp_line (start 1.6 -1.0) (end 1.6 1.0) (stroke (width 0.12)) (layer "B.SilkS"))
+  )
+
+  (footprint "Connector:PinHeader_1x02"
+    (layer "F.Cu") (at 5 15 0) (property "Reference" "J1" (at 0 -3) (layer "F.SilkS"))
+    (property "Value" "CONN" (at 0 3) (layer "F.Fab"))
+    (pad "1" thru_hole circle (at -1.27 0) (size 1.7 1.7) (drill 0.8) (layers "*.Cu" "*.Mask") (net 0 ""))
+    (pad "2" thru_hole circle (at 1.27 0) (size 1.7 1.7) (drill 0.8) (layers "*.Cu" "*.Mask") (net 0 ""))
+  )
+
+  (gr_rect (start 0 0) (end 30 20) (stroke (width 0.1)) (fill none) (layer "Edge.Cuts"))
+
+  (segment (start 9.2 5) (end 5 5) (width 0.25) (layer "F.Cu") (net 1))
+  (segment (start 10.8 5) (end 20 5) (width 0.25) (layer "F.Cu") (net 2))
+  (segment (start 20 5) (end 20 14.1) (width 0.25) (layer "B.Cu") (net 2))
+  (arc (start 5 10) (mid 7 12) (end 9 10) (width 0.25) (layer "F.Cu") (net 1))
+  (via (at 5 5) (size 0.8) (drill 0.4) (layers "F.Cu" "B.Cu") (net 1))
+  (gr_line (start 25 2) (end 28 2) (stroke (width 0.15)) (layer "F.SilkS"))
+
+  (zone (net 1) (net_name "N1") (layer "F.Cu") (hatch edge 0.5)
+    (polygon (pts (xy 2 2) (xy 28 2) (xy 28 8) (xy 2 8)))
+    (filled_polygon (layer "F.Cu") (pts (xy 2 2) (xy 28 2) (xy 28 8) (xy 2 8)))
+  )
+)
