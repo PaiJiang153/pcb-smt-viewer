@@ -6,6 +6,9 @@ whenToUse: 用户给出 PCB 设计文件（Altium .PcbDoc/.zip、嘉立创EDA .j
 
 # PCB → SMT 贴片定位图（多格式）
 
+> 源码 / 更新 / issue：<https://github.com/PaiJiang153/pcb-smt-viewer>
+> 安装：`git clone <仓库> && ./pcb-smt-viewer/install.sh`
+
 把 PCB 设计文件解析成 `pcb_data.json`，再打包成一个**单文件 HTML**（数据/样式/脚本全内联，
 约 0.9 MB，双击即可离线打开）。网页里能按位号/值/封装搜索并自动缩放高亮到元件，切换顶层/底层
 （底层为镜像视图），标记已贴并统计进度，导出 CSV。
